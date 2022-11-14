@@ -1,0 +1,13 @@
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\exceptions\PatientNotExistsException.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\util\ServerConfiguration.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\dto\DoctorDTO.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\controller\AppointmentRestController.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\exception\AppointmentNotFoundException.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\entity\Appointment.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\services\AppointmentService.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\repository\AppointmentRepository.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\entity\Message.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\AppointmentApplication.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\dto\AppointmentDTO.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\dto\PatientDTO.java
+C:\workspace4\clinic-management\appointment-service\src\main\java\com\demo\spring\exceptions\DoctorNotFoundException.java

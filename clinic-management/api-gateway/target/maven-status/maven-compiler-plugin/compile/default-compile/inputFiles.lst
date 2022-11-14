@@ -1,0 +1,10 @@
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\dto\CredentialsDTO.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\services\CredentialsService.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\controller\CredentialsController.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\exceptions\UserNotFoundException.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\util\Message.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\repository\CredentialRepository.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\util\ServerConfiguration.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\entity\Credentials.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\exceptions\UserNameExistsException.java
+C:\workspace4\clinic-management\api-gateway\src\main\java\com\demo\spring\ApiGatewayApplication.java

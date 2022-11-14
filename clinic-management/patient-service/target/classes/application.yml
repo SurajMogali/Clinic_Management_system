@@ -1,0 +1,37 @@
+server:
+  port: 8191
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password:  ${DB_PASSWORD:root}
+    url: ${JDBC_URL:jdbc:mysql://localhost:3307/patientdb}
+    username: ${DB_USER:root}
+    
+  application:
+    name: patient-service
+    
+  jpa:
+    show-sql: true
+    hibernate:
+        ddl-auto: update
+        
+eureka:
+  client:
+    register-with-eureka: true
+    service-url : 
+      defaultZone : ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+      
+logging:
+  file:
+    name: patient-service.log
+
+
+
+            
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - health
+        - prometheus             

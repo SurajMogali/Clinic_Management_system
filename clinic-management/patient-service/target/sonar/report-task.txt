@@ -1,0 +1,6 @@
+projectKey=com.demo:patient-service
+serverUrl=http://localhost:9099
+serverVersion=9.6.1.59531
+dashboardUrl=http://localhost:9099/dashboard?id=com.demo%3Apatient-service
+ceTaskId=AYQa1Gx8LUSQOV8eTOBo
+ceTaskUrl=http://localhost:9099/api/ce/task?id=AYQa1Gx8LUSQOV8eTOBo

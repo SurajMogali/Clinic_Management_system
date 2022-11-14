@@ -1,0 +1,68 @@
+version: '3'
+services:
+  eureka-server:
+    image: eureka-server:1.0
+    container_name: eureka-server
+    expose:
+    - "8761"
+    ports:
+    - 8761:8761
+
+  
+
+  patient-service:
+    image: patient-service:1.0
+    ports:
+    - "8191"
+    environment:
+      - JAVA_OPTS=
+           -DEUREKA_SERVER_URL=http://eureka-server:8761/eureka -DDB_USER=admin -DDB_PASSWORD=welcome1 -DJDBC_URL=jdbc:mysql://mock-project.cyrnhbug3sff.us-east-1.rds.amazonaws.com:3307/patientdb 
+    depends_on:
+      - eureka-server
+      
+    links:
+        - eureka-server
+        
+
+  clinic-service:
+    image: clinic-service:1.0
+    ports:
+    - "8193"
+    environment:
+      - JAVA_OPTS=
+           -DEUREKA_SERVER_URL=http://eureka-server:8761/eureka -DDB_USER=admin -DDB_PASSWORD=welcome1 -DJDBC_URL=jdbc:mysql://mock-project.cyrnhbug3sff.us-east-1.rds.amazonaws.com:3307/clinicdb 
+    depends_on:
+      - eureka-server
+      
+    links:
+        - eureka-server
+        
+
+  appointment-service:
+    image: appointment-service:1.0
+
+
+    ports:
+    - "8192"
+    environment:
+      - JAVA_OPTS=
+           -DEUREKA_SERVER_URL=http://eureka-server:8761/eureka -DDB_USER=admin -DDB_PASSWORD=welcome1 -DJDBC_URL=jdbc:mysql://mock-project.cyrnhbug3sff.us-east-1.rds.amazonaws.com:3307/appointmentdb  
+    depends_on:
+      - eureka-server
+      
+    links:
+        - eureka-server
+        
+
+  api-gateway:
+    image: api-gateway:2.7.4
+    ports:
+    - "8194:8194"
+    environment:
+      - JAVA_OPTS=
+           -DEUREKA_SERVER_URL=http://eureka-server:8761/eureka -DDB_USER=admin -DDB_PASSWORD=welcome1 -DJDBC_URL=jdbc:mysql://mock-project.cyrnhbug3sff.us-east-1.rds.amazonaws.com:3307/credentialdb 
+    depends_on:
+      - eureka-server
+    links:
+        - eureka-server
+        

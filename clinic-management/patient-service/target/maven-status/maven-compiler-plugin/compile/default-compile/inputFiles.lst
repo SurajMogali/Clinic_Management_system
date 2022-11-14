@@ -1,0 +1,9 @@
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\entity\Message.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\PatientApplication.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\controller\PatientRestController.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\entity\Patient.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\exceptions\PatientNotExistsException.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\services\PatientService.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\exceptions\PatientNotFoundException.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\repository\PatientRepository.java
+C:\workspace4\clinic-management\patient-service\src\main\java\com\demo\spring\dto\PatientDTO.java

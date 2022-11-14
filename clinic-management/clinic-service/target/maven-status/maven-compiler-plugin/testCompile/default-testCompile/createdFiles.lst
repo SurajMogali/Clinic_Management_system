@@ -1,0 +1,15 @@
+com\demo\spring\entity\DoctorTest.class
+com\demo\spring\PatientDiagnosticRestControllerTest.class
+com\demo\spring\dto\DoctorDTOTest.class
+com\demo\spring\dto\DoctorSpecialityDTOTest.class
+com\demo\spring\dto\PatientDTOTest.class
+com\demo\spring\entity\SpecialityDTO.class
+com\demo\spring\DoctorSpecialityRestControllerTest.class
+com\demo\spring\dto\DiagnosticDTOTest.class
+com\demo\spring\entity\DoctorSpecialityTest.class
+com\demo\spring\entity\PatientDiagnosticDTOTest.class
+com\demo\spring\DoctorRestControllerTest.class
+com\demo\spring\entity\DiagnosticTest.class
+com\demo\spring\dto\PatientDiagnosticDTOTest.class
+com\demo\spring\DiagnosticRestControllerTest.class
+com\demo\spring\dto\SpecialityDTOTest.class

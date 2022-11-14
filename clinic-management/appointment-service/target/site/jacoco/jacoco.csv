@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+appointment-service,com.demo.spring.services,AppointmentService,23,59,1,3,4,13,1,5,0,4
+appointment-service,com.demo.spring.controller,AppointmentRestController,0,110,4,8,0,20,4,6,0,4
+appointment-service,com.demo.spring.dto,PatientDTO,0,46,0,0,0,7,0,10,0,10
+appointment-service,com.demo.spring.dto,AppointmentDTO,0,46,0,0,0,7,0,10,0,10
+appointment-service,com.demo.spring.dto,DoctorDTO,0,46,0,0,0,7,0,10,0,10
+appointment-service,com.demo.spring.entity,Message,7,9,0,0,4,4,2,2,2,2
+appointment-service,com.demo.spring.entity,Appointment,0,46,0,0,0,20,0,10,0,10
+appointment-service,com.demo.spring,AppointmentApplication,5,27,0,0,2,4,1,3,1,3
+appointment-service,com.demo.spring.exceptions,DoctorNotFoundException,0,9,0,0,0,2,0,2,0,2
+appointment-service,com.demo.spring.exceptions,PatientNotExistsException,0,9,0,0,0,2,0,2,0,2
+appointment-service,com.demo.spring.exception,AppointmentNotFoundException,0,9,0,0,0,2,0,2,0,2
+appointment-service,com.demo.spring.util,ServerConfiguration,7,26,0,0,3,10,2,5,2,5

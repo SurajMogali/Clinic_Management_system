@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoctorSpecialityService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">clinic-service</a> &gt; <a href="index.source.html" class="el_package">com.demo.spring.services</a> &gt; <span class="el_source">DoctorSpecialityService.java</span></div><h1>DoctorSpecialityService.java</h1><pre class="source lang-java linenums">package com.demo.spring.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.demo.spring.dto.DoctorSpecialityDTO;
+import com.demo.spring.entity.Doctor;
+import com.demo.spring.entity.DoctorSpeciality;
+import com.demo.spring.exceptions.DoctorNotFoundException;
+import com.demo.spring.exceptions.DoctorSpecialityNotFoundException;
+import com.demo.spring.repository.DoctorRepository;
+import com.demo.spring.repository.DoctorSpecialityRepository;
+import com.demo.spring.util.Message;
+
+@Service
+<span class="fc" id="L22">public class DoctorSpecialityService {</span>
+
+<span class="fc" id="L24">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
+
+	@Autowired
+	DoctorSpecialityRepository doctorspecialityRepository;
+
+	@Autowired
+	DoctorRepository doctorRepository;
+
+	public Message addDoctorService(DoctorSpecialityDTO doctorSpecialityDTO) throws DoctorNotFoundException {
+
+<span class="fc bfc" id="L34" title="All 2 branches covered.">		if (doctorRepository.existsById(doctorSpecialityDTO.getDoctorId())) {</span>
+<span class="fc" id="L35">			DoctorSpeciality doctorSpeciality = new DoctorSpeciality(doctorSpecialityDTO.getId(),</span>
+<span class="fc" id="L36">					doctorSpecialityDTO.getDoctorId(), doctorSpecialityDTO.getSpecialityId());</span>
+<span class="fc" id="L37">			doctorspecialityRepository.save(doctorSpeciality);</span>
+<span class="fc" id="L38">			logger.info(&quot;DoctorSpeciality Service: Add the Doctor to Speciality&quot;);</span>
+<span class="fc" id="L39">			return new Message(&quot;Doctor added to speciality&quot;);</span>
+		} else {
+
+<span class="fc" id="L42">			logger.error(&quot;DoctorSpeciality Service: Exception : Doctor Not Found Exception&quot;);</span>
+<span class="fc" id="L43">			throw new DoctorNotFoundException();</span>
+		}
+
+	}
+
+	public Message removeDoctorFromSpecialityService(Integer doctorId, Integer specialityId)
+			throws DoctorSpecialityNotFoundException {
+<span class="fc" id="L50">		List&lt;DoctorSpeciality&gt; doctorList = doctorspecialityRepository.findByDoctorIdAndSpecialityId(doctorId,</span>
+				specialityId);
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		if (doctorList.isEmpty()) {</span>
+<span class="fc" id="L53">			throw new DoctorSpecialityNotFoundException();</span>
+		} else {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">			for (DoctorSpeciality doctorSpeciality : doctorList) {</span>
+<span class="fc" id="L56">				doctorspecialityRepository.delete(doctorSpeciality);</span>
+<span class="fc" id="L57">			}</span>
+<span class="fc" id="L58">			return new Message(&quot;Doctor Removed from Speciality&quot;);</span>
+		}
+
+	}
+
+	public List&lt;Doctor&gt; listDoctorInSpeciality(Integer specialityID)
+			throws DoctorSpecialityNotFoundException, DoctorNotFoundException {
+<span class="fc" id="L65">		List&lt;DoctorSpeciality&gt; doctorIdList = doctorspecialityRepository.findAllDoctor(specialityID);</span>
+<span class="fc" id="L66">		Integer i = 0;</span>
+<span class="fc" id="L67">		List&lt;Doctor&gt; doctorList = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">		if (doctorIdList.isEmpty()) {</span>
+<span class="nc" id="L69">			logger.error(&quot;DoctorSpeciality Service: Exception : Doctor Not Found Exception&quot;);</span>
+<span class="nc" id="L70">			throw new DoctorNotFoundException();</span>
+		} else {
+<span class="fc bfc" id="L72" title="All 2 branches covered.">			for (doctorRepository.existsById(doctorIdList.get(i).getDoctorId()); i &lt; doctorIdList.size(); i++) {</span>
+
+<span class="fc" id="L74">				Optional&lt;Doctor&gt; doctorOps = doctorRepository.findById(doctorIdList.get(i).getDoctorId());</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">				if (doctorOps.isPresent()) {</span>
+<span class="fc" id="L76">					doctorList.add(doctorOps.get());</span>
+				}
+			}
+<span class="fc bfc" id="L79" title="All 2 branches covered.">			if (doctorList.isEmpty()) {</span>
+<span class="fc" id="L80">				logger.error(&quot;DoctorSpeciality Service: Exception : DoctorSpeciality Not Found Exception&quot;);</span>
+<span class="fc" id="L81">				throw new DoctorSpecialityNotFoundException();</span>
+			} else {
+<span class="fc" id="L83">				logger.info(&quot;DoctorSpeciality Service: List the Doctors with Speciality &quot;);</span>
+<span class="fc" id="L84">				return doctorList;</span>
+			}
+		}
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppointmentService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">appointment-service</a> &gt; <a href="index.source.html" class="el_package">com.demo.spring.services</a> &gt; <span class="el_source">AppointmentService.java</span></div><h1>AppointmentService.java</h1><pre class="source lang-java linenums">package com.demo.spring.services;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.demo.spring.dto.AppointmentDTO;
+import com.demo.spring.entity.Appointment;
+import com.demo.spring.entity.Message;
+import com.demo.spring.exception.AppointmentNotFoundException;
+import com.demo.spring.repository.AppointmentRepository;
+
+@Service
+<span class="fc" id="L18">public class AppointmentService {</span>
+	
+<span class="fc" id="L20">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
+
+	@Autowired
+	AppointmentRepository appointmentRepository;
+
+	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAllAppointmentsService() {
+<span class="fc" id="L26">		logger.info(&quot;Appointment Service: List all the appointments&quot;);</span>
+<span class="fc" id="L27">		return ResponseEntity.ok(appointmentRepository.findAll());</span>
+	}
+
+	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAppointmentsByDateService(int doctorID, String date)
+			throws AppointmentNotFoundException {
+<span class="fc" id="L32">		List&lt;Appointment&gt; listAppointment = appointmentRepository.findAllByDate(doctorID, date);</span>
+<span class="fc" id="L33">		logger.info(&quot;Appointment Service: List the appointments based on date&quot;);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">		if (listAppointment.isEmpty()) {</span>
+			
+<span class="fc" id="L36">			logger.error(&quot;Appointment Service: Exception : Appointment Not Found Exception&quot;);</span>
+<span class="fc" id="L37">			throw new AppointmentNotFoundException();</span>
+		} else {
+<span class="fc" id="L39">			return ResponseEntity.ok(listAppointment);</span>
+		}
+	}
+
+	public ResponseEntity&lt;Message&gt; getAppointmentService(AppointmentDTO appointmentDTO) {
+<span class="fc" id="L44">		logger.info(&quot;Appointment Service: List the appointments based on date&quot;);</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">		if (appointmentRepository.existsById(appointmentDTO.getAppointmentId())) {</span>
+			
+<span class="fc" id="L47">			return ResponseEntity.ok(new Message(&quot;Appointment already exists&quot;));</span>
+		} else {
+<span class="nc" id="L49">			Appointment appointment = new Appointment(appointmentDTO.getAppointmentId(), appointmentDTO.getDoctorId(),</span>
+<span class="nc" id="L50">					appointmentDTO.getPatientId(), appointmentDTO.getDate());</span>
+<span class="nc" id="L51">			appointmentRepository.save(appointment);</span>
+<span class="nc" id="L52">			return ResponseEntity.ok(new Message(&quot;Appointment saved&quot;));</span>
+		}
+
+	}
+	
+	
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppointmentRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">appointment-service</a> &gt; <a href="index.source.html" class="el_package">com.demo.spring.controller</a> &gt; <span class="el_source">AppointmentRestController.java</span></div><h1>AppointmentRestController.java</h1><pre class="source lang-java linenums">package com.demo.spring.controller;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.demo.spring.dto.AppointmentDTO;
+import com.demo.spring.dto.DoctorDTO;
+import com.demo.spring.dto.PatientDTO;
+import com.demo.spring.entity.Appointment;
+import com.demo.spring.entity.Message;
+import com.demo.spring.exception.AppointmentNotFoundException;
+import com.demo.spring.exceptions.DoctorNotFoundException;
+import com.demo.spring.exceptions.PatientNotExistsException;
+import com.demo.spring.services.AppointmentService;
+import com.demo.spring.util.ServerConfiguration;
+
+import io.micrometer.core.annotation.Timed;
+import io.swagger.v3.oas.annotations.OpenAPI30;
+
+
+
+
+@RestController
+@EnableConfigurationProperties(ServerConfiguration.class)
+@RequestMapping(&quot;/appointment&quot;)
+@OpenAPI30
+<span class="fc" id="L40">public class AppointmentRestController {</span>
+	
+<span class="fc" id="L42">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
+
+	@Autowired
+	AppointmentService appointmentService;
+	
+	/**
+	 * this method will return list of all appointments
+	 * @return
+	 */
+	
+	
+
+	@Timed(value = &quot;requests.count.list&quot;)
+	@GetMapping(path = &quot;/list&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAllAppointments() {
+<span class="fc" id="L57">		logger.info(&quot;This method had called the service to list appointments&quot;);</span>
+<span class="fc" id="L58">		return (appointmentService.findAllAppointmentsService());</span>
+	}
+
+	
+	
+	/**
+	 * this method will return appointmentList by date
+	 * @param doctorID
+	 * @param date
+	 * @return
+	 * @throws AppointmentNotFoundException
+	 */
+	@Timed(value = &quot;requests.count.listbydate&quot;)
+	@GetMapping(path = &quot;/listbyDate/{doctorID}/{date}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAppointmentsByDate(@PathVariable(&quot;doctorID&quot;) int doctorID,
+			@PathVariable(&quot;date&quot;) String date) throws AppointmentNotFoundException {
+<span class="fc" id="L74">		logger.info(&quot;This method had called the service to list Appointments by date&quot;);</span>
+		
+<span class="fc" id="L76">		return appointmentService.findAppointmentsByDateService(doctorID, date);</span>
+	}
+
+
+	
+	@Autowired
+	RestTemplate restTemplate;
+
+	@Autowired
+	ServerConfiguration server;
+	
+	/**
+	 * this method will save all appointments
+	 * @param appointmentDTO
+	 * @return
+	 * @throws PatientNotExistsException
+	 * @throws DoctorNotFoundException
+	 * @throws NullPointerException
+	 */
+
+
+	@PostMapping(path = &quot;/save&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Timed(value = &quot;request.add.appointment&quot;)
+	public ResponseEntity&lt;Message&gt; addAppointment(@RequestBody AppointmentDTO appointmentDTO)
+			throws PatientNotExistsException, DoctorNotFoundException, NullPointerException {
+		
+<span class="fc" id="L102">		logger.info(&quot;This method had called the service to save appointments&quot;);</span>
+		
+<span class="fc" id="L104">		PatientDTO patientDTO = restTemplate.getForEntity(server.getPatientServer() + &quot;/patient/{id}&quot;, PatientDTO.class,</span>
+<span class="fc" id="L105">				appointmentDTO.getPatientId()).getBody();</span>
+
+<span class="pc bpc" id="L107" title="2 of 4 branches missed.">		if (patientDTO != null &amp;&amp; patientDTO.getPatientId() != null</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">				&amp;&amp; patientDTO.getPatientId().equals(appointmentDTO.getPatientId())) {</span>
+<span class="fc" id="L109">			DoctorDTO doctorDTO = restTemplate.getForEntity(server.getClinicServer() + &quot;/clinic/doctor/find/{doctorId}&quot;,</span>
+<span class="fc" id="L110">					DoctorDTO.class, appointmentDTO.getDoctorId()).getBody();</span>
+
+<span class="pc bpc" id="L112" title="2 of 4 branches missed.">			if (doctorDTO != null &amp;&amp; doctorDTO.getDoctorId() != null</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">					&amp;&amp; doctorDTO.getDoctorId().equals(appointmentDTO.getDoctorId())) {</span>
+<span class="fc" id="L114">				return appointmentService.getAppointmentService(appointmentDTO);</span>
+			} else {
+<span class="fc" id="L116">				logger.error(&quot;Exception : Doctor Not Found Exception&quot;);</span>
+<span class="fc" id="L117">				throw new DoctorNotFoundException();</span>
+			}
+
+		} else {
+<span class="fc" id="L121">			logger.error(&quot;Exception : Patient Not Found Exception&quot;);</span>
+<span class="fc" id="L122">			throw new PatientNotExistsException();</span>
+		}
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

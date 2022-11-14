@@ -1,0 +1,6 @@
+projectKey=org.springframework.boot:api-gateway
+serverUrl=http://localhost:9099
+serverVersion=9.6.1.59531
+dashboardUrl=http://localhost:9099/dashboard?id=org.springframework.boot%3Aapi-gateway
+ceTaskId=AYQau1QOLUSQOV8eTOBl
+ceTaskUrl=http://localhost:9099/api/ce/task?id=AYQau1QOLUSQOV8eTOBl

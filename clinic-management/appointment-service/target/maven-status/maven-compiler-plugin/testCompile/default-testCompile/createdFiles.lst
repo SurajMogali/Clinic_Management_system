@@ -1,0 +1,4 @@
+com\demo\spring\AppointmentRestControllerTest.class
+com\demo\spring\AppointmentControllerRestTemplateTest.class
+com\demo\spring\dto\AppointmentDTOTest.class
+com\demo\spring\entity\AppointmentTest.class
